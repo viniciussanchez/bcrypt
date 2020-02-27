@@ -234,7 +234,8 @@ end;
 function TBCryptImpl.MTRandomBytes(ANumberOfBytes: DWORD): string;
 var
   LRandomByte: string;
-  LWorkingByte, LCount: DWORD;
+  LWorkingByte: Integer;
+  LCount: DWORD;  
 begin
   LCount := 1;
   LWorkingByte := 0;
