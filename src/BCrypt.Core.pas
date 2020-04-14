@@ -212,7 +212,7 @@ end;
 
 function TBCryptImpl.FormatPasswordHash(const ASalt, AHash: TBytes; ACost: Byte; AHashType: THashType): string;
 var
-  LHash, LPrefix, LSalt: string;
+  LHash, LPrefix, LSalt, LCost: string;
 begin
   case AHashType of
     THashType.BSD:
@@ -222,7 +222,8 @@ begin
   end;
   LSalt := BsdBase64Encode(ASalt, Length(ASalt));
   LHash := BsdBase64Encode(AHash, Length(MagicText) * 4 - 1);
-  Result := Format('$%s$%d$%s%s', [LPrefix, ACost, LSalt, LHash]);
+  LCost := ACost.ToString.PadLeft(2, '0');
+  Result := Format('$%s$%s$%s%s', [LPrefix, LCost, LSalt, LHash]);
 end;
 
 procedure TBCryptImpl.InitializeKey();
@@ -313,8 +314,6 @@ function TBCryptImpl.GenerateHash(const APassword: UTF8String; AHashType: THashT
 var
   LPasswordKey, LSaltBytes, LHash: TBytes;
 begin
-  if (ACost < 10) or (ACost > 30) then
-    raise EBCrypt.Create('Invalid value for cost. It must be between 10 and 30.');
   SetLength(LPasswordKey, Length(APassword) + 1);
   Move(APassword[1], LPasswordKey[0], Length(APassword));
   LPasswordKey[high(LPasswordKey)] := 0;

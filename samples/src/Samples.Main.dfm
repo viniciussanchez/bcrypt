@@ -20,13 +20,11 @@ object FrmSamples: TFrmSamples
     Top = 0
     Width = 649
     Height = 226
-    ActivePage = tabNeedsRehash
+    ActivePage = tabCompare
     Align = alClient
     TabOrder = 0
     object tabGenerate: TTabSheet
       Caption = 'Generate hash'
-      ExplicitWidth = 281
-      ExplicitHeight = 165
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -35,10 +33,6 @@ object FrmSamples: TFrmSamples
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 232
-        ExplicitTop = 200
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object edtPassword: TLabeledEdit
           Left = 12
           Top = 23
@@ -71,8 +65,6 @@ object FrmSamples: TFrmSamples
     object tabCompare: TTabSheet
       Caption = 'Compare hash'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 28
       object lblCompareTrue: TLabel
         Left = 93
         Top = 114
@@ -134,8 +126,6 @@ object FrmSamples: TFrmSamples
     object tabHashInfo: TTabSheet
       Caption = 'Get hash info'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 28
       object Label1: TLabel
         Left = 12
         Top = 64
