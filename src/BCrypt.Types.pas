@@ -17,7 +17,9 @@ type
   end;
 
   EBCrypt = class(Exception);
+  {$IFDEF POSIX}
   UTF8String = type AnsiString(CP_UTF8);
+  {$ENDIF POSIX}  
 
 implementation
 
