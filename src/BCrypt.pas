@@ -227,7 +227,7 @@ type
     class function GenerateHash(const APassword: string; AType: TType; ACost: Byte): string; overload; static;
     class function GenerateHash(const APassword: string; AType: TType; ACost: Byte; const ASalt: string): string; overload; static;
     class function GetHashInfo(const AHash: string): TInfo; static;
-    class function IsValidHash(const AHash: string): Boolean; static;
+    class function IsValidHashFormat(const AHash: string): Boolean; static;
     class function NeedsRehash(const AHash: string): Boolean; overload; static;
     class function NeedsRehash(const AHash: string; ACost: Byte): Boolean; overload; static;
   end;
@@ -467,7 +467,7 @@ end;
 
 class function TBCrypt.GetHashInfo(const AHash: string): TInfo;
 begin
-  if not IsValidHash(AHash) then
+  if not IsValidHashFormat(AHash) then
     raise TBCrypt.Exception.CreateFmt('Invalid hash %s', [AHash]);
   Result.&Type := ResolveHashType(AHash.Substring(0, 4));
   Result.Cost := StrToInt(AHash.Substring(4, 2));
@@ -481,7 +481,7 @@ begin
   Move(PBoxOrg, APBox[0], Sizeof(PBoxOrg));
 end;
 
-class function TBCrypt.IsValidHash(const AHash: string): Boolean;
+class function TBCrypt.IsValidHashFormat(const AHash: string): Boolean;
 var
   LCost: Integer;
 begin
@@ -516,7 +516,7 @@ end;
 
 class function TBCrypt.NeedsRehash(const AHash: string; ACost: Byte): Boolean;
 begin
-  if not IsValidHash(AHash) then
+  if not IsValidHashFormat(AHash) then
     raise TBCrypt.Exception.CreateFmt('Invalid hash %s', [AHash]);
   if not InRange(ACost, 4, 31) then
     raise TBCrypt.Exception.Create('Invalid hash parameter');

@@ -1,5 +1,5 @@
 # BCrypt
-![Platforms](https://img.shields.io/badge/Supported%20platforms-Windows,%20MacOS%20and%20Linux-green.svg)
+![Platforms](https://img.shields.io/badge/Supported%20platforms-Windows,%20Android,%20MacOS,%20iOS%20and%20Linux-green.svg)
 
 A library to help you hash passwords.
 You can read about [bcrypt in Wikipedia](https://en.wikipedia.org/wiki/Bcrypt "BCrypt") as well as in the following article: [How To Safely Store A Password](https://codahale.com/how-to-safely-store-a-password/ "How To Safely Store A Password")
