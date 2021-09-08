@@ -2,7 +2,7 @@ unit BCrypt.Core;
 
 interface
 
-uses System.SysUtils, System.Classes, System.Types, System.StrUtils, System.Math, BCrypt.Types, BCrypt.Intf, BCrypt.Consts;
+uses {$IFDEF FPC}SysUtils, Classes, Types, StrUtils, Math{$ELSE}System.SysUtils, System.Classes, System.Types, System.StrUtils, System.Math{$ENDIF}, BCrypt.Types, BCrypt.Intf, BCrypt.Consts;
 
 type
   TBCryptImpl = class(TInterfacedObject, IBCrypt)

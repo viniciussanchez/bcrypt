@@ -2,7 +2,7 @@ unit BCrypt.Consts;
 
 interface
 
-uses System.Types;
+uses {$IFDEF FPC}Types{$ELSE}System.Types{$ENDIF};
 
 const
   BCRYPT_SALT_LEN = 16;

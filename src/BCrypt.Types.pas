@@ -2,7 +2,7 @@ unit BCrypt.Types;
 
 interface
 
-uses System.SysUtils;
+uses {$IFDEF FPC}SysUtils{$ELSE}System.SysUtils{$ENDIF};
 
 type
 {$SCOPEDENUMS ON}
