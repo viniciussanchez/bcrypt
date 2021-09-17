@@ -285,7 +285,7 @@ var
   I: Longint;
 begin
   SetLength(LRandomTemp, 17);
-  SetLength(LByteArray, 16);
+  SetLength(LByteArray, 17);
   Randomize;
   LRandomTemp := MTRandomBytes(BCRYPT_SALT_LEN);
   I := 0;
