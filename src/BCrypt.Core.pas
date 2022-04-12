@@ -2,6 +2,8 @@ unit BCrypt.Core;
 
 interface
 
+{$Q-} {$OVERFLOWCHECKS OFF}
+
 uses {$IFDEF FPC}SysUtils, Classes, Types, StrUtils, Math{$ELSE}System.SysUtils, System.Classes, System.Types, System.StrUtils, System.Math{$ENDIF}, BCrypt.Types, BCrypt.Intf, BCrypt.Consts;
 
 type

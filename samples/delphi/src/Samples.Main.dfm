@@ -11,7 +11,7 @@ object FrmSamples: TFrmSamples
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
+  OldCreateOrder = True
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -20,7 +20,7 @@ object FrmSamples: TFrmSamples
     Top = 0
     Width = 649
     Height = 226
-    ActivePage = tabCompare
+    ActivePage = tabNeedsRehash
     Align = alClient
     TabOrder = 0
     object tabGenerate: TTabSheet

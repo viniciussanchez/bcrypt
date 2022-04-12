@@ -1,0 +1,264 @@
+object Form1: TForm1
+  Left = 350
+  Height = 240
+  Top = 31
+  Width = 652
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 652
+  OnShow = FormShow
+  object pclBCrypt: TPageControl
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 652
+    ActivePage = tabGenerate
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 0
+    object tabGenerate: TTabSheet
+      Caption = 'Generate hash'
+      ClientHeight = 212
+      ClientWidth = 644
+      object Panel1: TPanel
+        Left = 0
+        Height = 212
+        Top = 0
+        Width = 644
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 212
+        ClientWidth = 644
+        TabOrder = 0
+        object edtPassword: TLabeledEdit
+          Left = 12
+          Height = 23
+          Top = 23
+          Width = 534
+          EditLabel.Height = 15
+          EditLabel.Width = 534
+          EditLabel.Caption = 'Password:'
+          TabOrder = 0
+        end
+        object btnGenerate: TButton
+          Left = 552
+          Height = 25
+          Top = 21
+          Width = 75
+          Caption = 'Generate'
+          OnClick = btnGenerateClick
+          TabOrder = 1
+        end
+        object mmBCrypt: TMemo
+          Left = 12
+          Height = 137
+          Top = 52
+          Width = 615
+          ReadOnly = True
+          TabOrder = 2
+        end
+      end
+    end
+    object tabCompare: TTabSheet
+      Caption = 'Compare hash'
+      ClientHeight = 212
+      ClientWidth = 644
+      ImageIndex = 1
+      object lblCompareTrue: TLabel
+        Left = 93
+        Height = 13
+        Top = 114
+        Width = 26
+        Caption = 'True'
+        Font.Color = clGreen
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Visible = False
+      end
+      object lblCompareFalse: TLabel
+        Left = 93
+        Height = 13
+        Top = 114
+        Width = 29
+        Caption = 'False'
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Visible = False
+      end
+      object edtPasswordCompare: TLabeledEdit
+        Left = 12
+        Height = 23
+        Top = 23
+        Width = 613
+        EditLabel.Height = 15
+        EditLabel.Width = 613
+        EditLabel.Caption = 'Password:'
+        TabOrder = 0
+      end
+      object edtHash: TLabeledEdit
+        Left = 12
+        Height = 23
+        Top = 71
+        Width = 613
+        EditLabel.Height = 15
+        EditLabel.Width = 613
+        EditLabel.Caption = 'Hash:'
+        TabOrder = 1
+      end
+      object btnCompare: TButton
+        Left = 12
+        Height = 25
+        Top = 109
+        Width = 75
+        Caption = 'Compare'
+        OnClick = btnCompareClick
+        TabOrder = 2
+      end
+    end
+    object tabHashInfo: TTabSheet
+      Caption = 'Get hash info'
+      ClientHeight = 212
+      ClientWidth = 644
+      ImageIndex = 2
+      object Label1: TLabel
+        Left = 12
+        Height = 13
+        Top = 64
+        Width = 26
+        Caption = 'Info:'
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label2: TLabel
+        Left = 12
+        Height = 15
+        Top = 83
+        Width = 27
+        Caption = 'Type:'
+      end
+      object Label3: TLabel
+        Left = 12
+        Height = 15
+        Top = 102
+        Width = 27
+        Caption = 'Cost:'
+      end
+      object Label4: TLabel
+        Left = 16
+        Height = 15
+        Top = 121
+        Width = 22
+        Caption = 'Salt:'
+      end
+      object Label5: TLabel
+        Left = 12
+        Height = 15
+        Top = 140
+        Width = 30
+        Caption = 'Hash:'
+      end
+      object lblType: TLabel
+        Left = 46
+        Height = 1
+        Top = 83
+        Width = 1
+      end
+      object lblCost: TLabel
+        Left = 46
+        Height = 1
+        Top = 102
+        Width = 1
+      end
+      object lblSalt: TLabel
+        Left = 46
+        Height = 1
+        Top = 121
+        Width = 1
+      end
+      object lblHash: TLabel
+        Left = 46
+        Height = 1
+        Top = 140
+        Width = 1
+      end
+      object edtHashInfo: TLabeledEdit
+        Left = 12
+        Height = 23
+        Top = 23
+        Width = 534
+        EditLabel.Height = 15
+        EditLabel.Width = 534
+        EditLabel.Caption = 'Hash:'
+        TabOrder = 0
+      end
+      object btnGetHashInfo: TButton
+        Left = 552
+        Height = 25
+        Top = 21
+        Width = 75
+        Caption = 'Get'
+        OnClick = btnGetHashInfoClick
+        TabOrder = 1
+      end
+    end
+    object tabNeedsRehash: TTabSheet
+      Caption = 'Needs rehash'
+      ClientHeight = 212
+      ClientWidth = 644
+      ImageIndex = 3
+      object lblNeedsRehashTrue: TLabel
+        Left = 93
+        Height = 13
+        Top = 55
+        Width = 26
+        Caption = 'True'
+        Font.Color = clGreen
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Visible = False
+      end
+      object lblNeedsRehashFalse: TLabel
+        Left = 93
+        Height = 13
+        Top = 55
+        Width = 29
+        Caption = 'False'
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Visible = False
+      end
+      object edtNeedsRehash: TLabeledEdit
+        Left = 12
+        Height = 23
+        Top = 23
+        Width = 613
+        EditLabel.Height = 15
+        EditLabel.Width = 613
+        EditLabel.Caption = 'Hash:'
+        TabOrder = 0
+      end
+      object btnNeedsRehash: TButton
+        Left = 12
+        Height = 25
+        Top = 50
+        Width = 75
+        Caption = 'Check'
+        OnClick = btnNeedsRehashClick
+        TabOrder = 1
+      end
+    end
+  end
+end
