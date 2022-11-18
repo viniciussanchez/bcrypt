@@ -291,7 +291,7 @@ begin
   Randomize;
   LRandomTemp := MTRandomBytes(BCRYPT_SALT_LEN);
   I := 0;
-  while I <= Length(LRandomTemp) do
+  while I < Length(LRandomTemp) do
   begin
     LByteArray[i] := Ord(LRandomTemp[i + 1]);
     Inc(i);
