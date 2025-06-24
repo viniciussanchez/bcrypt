@@ -219,8 +219,10 @@ begin
   case AHashType of
     THashType.BSD:
       LPrefix := '2a';
-    THashType.PHP, THashType.Default:
+    THashType.PHP :
       LPrefix := '2y';
+    THashType.Default:
+      LPrefix := '2b';
   end;
   LSalt := BsdBase64Encode(ASalt, Length(ASalt));
   LHash := BsdBase64Encode(AHash, Length(MagicText) * 4 - 1);
@@ -338,11 +340,13 @@ end;
 
 function TBCryptImpl.ResolveHashType(const AHashType: string): THashType;
 begin
-  case AnsiIndexStr(AHashType, ['$2y$', '$2a$']) of
+  case AnsiIndexStr(AHashType, ['$2y$', '$2a$','$2b$']) of
     0:
       Result := THashType.PHP;
     1:
       Result := THashType.BSD;
+    2:
+      Result := THashType.Default; // added as being current default
     else
       Result := THashType.Unknown;
   end;
