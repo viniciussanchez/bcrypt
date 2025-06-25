@@ -22,7 +22,7 @@ uses BCrypt.Consts, BCrypt.Core;
 
 class function TBCrypt.GenerateHash(const APassword: string): string;
 begin
-  Result := TBCryptImpl.New.GenerateHash(UTF8String(APassword), THashType.BSD, BCRYPT_DEFAULT_COST);
+  Result := TBCryptImpl.New.GenerateHash(UTF8String(APassword), THashType.Default, BCRYPT_DEFAULT_COST);
 end;
 
 class function TBCrypt.GenerateHash(const APassword: string; ACost: Byte): string;
