@@ -7,7 +7,7 @@ uses {$IFDEF FPC}Types{$ELSE}System.Types{$ENDIF};
 const
   BCRYPT_SALT_LEN = 16;
   BLOWFISH_NUM_ROUNDS = 16;
-  BCRYPT_DEFAULT_COST = 10;
+  BCRYPT_DEFAULT_COST = 12;
 
   PBoxOrg: array [0 .. 17] of DWORD = (
     $243f6a88, $85a308d3, $13198a2e, $03707344, $a4093822, $299f31d0, $082efa98,
