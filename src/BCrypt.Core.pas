@@ -346,7 +346,7 @@ begin
     1:
       Result := THashType.BSD;
     2:
-      Result := THashType.Default; // added as being current default
+      Result := THashType.BSD; // added as being current default
     else
       Result := THashType.Unknown;
   end;
