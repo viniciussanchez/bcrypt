@@ -21,7 +21,6 @@ type
     function CryptRaw(const AHashKey, ASalt: TBytes; ACost: Byte): TBytes;
     function FormatPasswordHash(const ASalt, AHash: TBytes; ACost: Byte; AHashType: THashType): string;
     function MakeSalt: TBytes;
-    function MTRandomBytes(ANumberOfBytes: DWORD): string;
     function ResolveHashType(const AHashType: string): THashType;
     function StreamToWord(const ARawByteData: TBytes; var AOffset: Longint): DWORD;
     function GenerateHash(const APassword: UTF8String; AHashType: THashType; ACost: Byte): string;
@@ -236,26 +235,6 @@ begin
   Move(PBoxOrg, FPBox, Sizeof(FPBox));
 end;
 
-function TBCryptImpl.MTRandomBytes(ANumberOfBytes: DWORD): string;
-var
-  LRandomByte: string;
-  LWorkingByte: Integer;
-  LCount: DWORD;  
-begin
-  LCount := 1;
-  LWorkingByte := 0;
-  SetLength(LRandomByte, (ANumberOfBytes * 2) + 1);
-  Randomize;
-  while LCount <= (ANumberOfBytes * 2) do
-  begin
-    LWorkingByte := LWorkingByte or RandomRange(1000000, Maxint) xor RandomRange(10000, Maxint);
-    LRandomByte[LCount] := Chr(LWorkingByte mod 256);
-    Inc(LCount);
-  end;
-  SetLength(LRandomByte, ANumberOfBytes);
-  Result := LRandomByte;
-end;
-
 procedure TBCryptImpl.NKey(const AHashKey: TBytes);
 var
   lr: array [0 .. 1] of DWORD;
@@ -282,24 +261,47 @@ begin
   end;
 end;
 
+{$IFDEF MSWINDOWS}
+function BCryptGenRandom(aAlgorithm: Pointer; aBuffer: PByte; aBytes, aFlags: Cardinal): Longint;
+  stdcall; external 'bcrypt.dll' name 'BCryptGenRandom';
+{$ENDIF}
+
 function TBCryptImpl.MakeSalt: TBytes;
+{$IFDEF POSIX}
 var
-  LByteArray: TBytes;
-  LRandomTemp: string;
-  I: Longint;
+  lHandle: THandle;
+  lOffset, lRead: Integer;
+{$ENDIF}
 begin
-  SetLength(LRandomTemp, 17);
-  SetLength(LByteArray, 17);
-  Randomize;
-  LRandomTemp := MTRandomBytes(BCRYPT_SALT_LEN);
-  I := 0;
-  while I < Length(LRandomTemp) do
-  begin
-    LByteArray[i] := Ord(LRandomTemp[i + 1]);
-    Inc(i);
+  SetLength(Result, BCRYPT_SALT_LEN);
+  try
+    {$IFDEF MSWINDOWS}
+    // BCRYPT_USE_SYSTEM_PREFERRED_RNG requires a nil algorithm handle.
+    if BCryptGenRandom(nil, @Result[0], BCRYPT_SALT_LEN, $00000002) <> 0 then
+      raise EBCrypt.Create('OS random generator failed');
+    {$ELSEIF DEFINED(POSIX)}
+    lHandle := FileOpen('/dev/urandom', fmOpenRead or fmShareDenyNone);
+    if lHandle = THandle(-1) then
+      raise EBCrypt.Create('OS random generator unavailable');
+    try
+      lOffset := 0;
+      while lOffset < BCRYPT_SALT_LEN do
+      begin
+        lRead := FileRead(lHandle, Result, lOffset, BCRYPT_SALT_LEN - lOffset);
+        if lRead <= 0 then
+          raise EBCrypt.Create('OS random generator returned insufficient bytes');
+        Inc(lOffset, lRead);
+      end;
+    finally
+      FileClose(lHandle);
+    end;
+    {$ELSE}
+      {$MESSAGE ERROR 'BCrypt salt generation requires Windows or POSIX'}
+    {$ENDIF}
+  except
+    SetLength(Result, 0);
+    raise;
   end;
-  SetLength(LByteArray, 16);
-  Result := LByteArray;
 end;
 
 function TBCryptImpl.StreamToWord(const ARawByteData: TBytes; var AOffset: Longint): DWORD;
